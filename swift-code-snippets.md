@@ -78,7 +78,8 @@ enum Scenes: String {
 let scene = Scenes.Detail.rawValue
 
 let viewController =
-      self.storyboard?.instantiateViewControllerWithIdentifier(scene)
+      self.storyboard?
+      .instantiateViewControllerWithIdentifier(scene)
 ```
 ---
 
@@ -118,24 +119,6 @@ let scene = Scenes.Detail.value()
 ```swift
 enum Theme {
     case Auto, Life
-}
-
-```
----
-```swift
-enum Theme {
-    case Auto, Life
-
-    func color() -> UIColor {
-
-    }
-}
-
-```
----
-```swift
-enum Theme {
-    case Auto, Life
 
     func color() -> UIColor {
         switch self {
@@ -153,7 +136,7 @@ enum Theme {
 self.backgroundColor = Theme.Auto.color()
 ```
 ---
-#Enum inner Enum
+#Enum within Enum
 ---
 ```swift
 enum Paths {
@@ -186,36 +169,12 @@ enum Assets: String {
     case User = "user-icon"
     case Phone = "phone-icon"
 
-}
-```
----
-```swift
-enum Assets: String {
-
-    case User = "user-icon"
-    case Phone = "phone-icon"
-
     func image() -> UIImage {
         return UIImage(named: self.rawValue)!
     }
 
 }
 
-```
----
-```swift
-enum Assets: String {
-
-    case User = "user-icon"
-    case Phone = "phone-icon"
-
-    func image() -> UIImage {
-        return UIImage(named: self.rawValue)!
-    }
-
-}
-
-imageView.image = Assets.Phone.image()
 ```
 ---
 
@@ -233,14 +192,15 @@ imageView.image = Assets.Phone.image()
 
 ---
 
-# The problem
+# A simple problem
 
 ```swift
 var text = " Apple "
 // " Apple "
 
 let charset =
-NSCharacterSet.whitespaceAndNewlineCharacterSet()
+    NSCharacterSet.whitespaceAndNewlineCharacterSet()
+
 text.stringByTrimmingCharactersInSet(charset)
 // "Apple"
 ```
@@ -264,26 +224,12 @@ extension SomeType {
 # String extension
 
 ```swift
-
-extension String {
-
-    func trim() -> String {
-
-    }
-
-}
-```
-
----
-
-# String extension
-
-```swift
 extension String {
 
     func trim() -> String {
       let charset =
-      NSCharacterSet.whitespaceAndNewlineCharacterSet()
+          NSCharacterSet.whitespaceAndNewlineCharacterSet()
+
       return self.stringByTrimmingCharactersInSet(charset)
     }
 
@@ -297,7 +243,7 @@ extension String {
 
 ---
 
-# Background problem
+# UIWindow background case
 
 ```swift
 
@@ -315,7 +261,7 @@ extension UIApplication {
 
     var backgroundColor: UIColor?
 
-    // ❌Extensions may not contain stored properties
+    //❌Extensions may not contain stored properties
 
 }
 ```
@@ -375,7 +321,7 @@ extension SomeType: SomeProtocol, AnotherProtocol {
 }
 ```
 ---
-# Allows you organize your
+# Protocol extensions
 
 ```swift
 class SomeViewController: UIViewController {    
@@ -383,7 +329,7 @@ class SomeViewController: UIViewController {
 }
 ```
 ---
-# Allows you organize your
+# Protocol extensions
 
 ```swift
 class SomeViewController: UIViewController, UITableViewDataSource {    
@@ -391,7 +337,7 @@ class SomeViewController: UIViewController, UITableViewDataSource {
 }
 ```
 ---
-# Allows you organize your
+# Protocol extensions
 
 ```swift
 class SomeViewController: UIViewController, UITableViewDataSource {    
@@ -413,7 +359,7 @@ class SomeViewController: UIViewController, UITableViewDataSource {
 
 ---
 
-# Allows you organize your
+# Protocol extensions
 
 ```swift
 class SomeViewController: UIViewController {    
@@ -438,7 +384,7 @@ extension SomeViewController: UITableViewDataSource {
 ```
 ---
 
-#@PublicExtension
+#twitter.com/PublicExtension
 
 ![inline](public_extension.png)
 
@@ -487,35 +433,12 @@ func POST(URLString: String!,
 ```
 ---
 
-# Clousure in a method signature
+#(parameters) -> (return type)
 
-```swift
-func POST(URLString: String!,
-          success: ((task: NSURLSessionDataTask!, object: AnyObject!) -> Void)!,
-          failure: ((task: NSURLSessionDataTask!, error: NSError!) -> Void)!) {
-
-}
-
-(task: NSURLSessionDataTask!, object: AnyObject!) -> Void
-```
----
-
-# Clousure in a method signature
-
-```swift
-func POST(URLString: String!,
-          success: ((task: NSURLSessionDataTask!, object: AnyObject!) -> Void)!,
-          failure: ((task: NSURLSessionDataTask!, error: NSError!) -> Void)!) {
-
-}
-
-(task: NSURLSessionDataTask!, object: AnyObject!) -> Void
-
-(parameters) -> (return type)
-```
 ---
 
 #(in) -> (out)
+
 ---
 
 #( ) -> ( )
@@ -531,59 +454,12 @@ func POST(URLString: String!,
 
 ```swift
 typealias AudioSample = UInt16
-```
-
----
-
-# Type Aliases syntax
-
-```swift
-typealias AudioSample = UInt16
 
 typealias Success =
+    (task: NSURLSessionDataTask!, object: AnyObject!) -> Void
 
-```
----
-
-# Type Aliases syntax
-
-```swift
-typealias AudioSample = UInt16
-
-typealias Success = (parameters) -> (return type)
-
-```
-
----
-
-# Type Aliases syntax
-
-```swift
-typealias AudioSample = UInt16
-
-typealias Success = (task: NSURLSessionDataTask!, object: AnyObject!) -> Void
-
-```
----
-
-# Type Aliases syntax
-
-```swift
-typealias AudioSample = UInt16
-
-typealias Success = (task: NSURLSessionDataTask!, object: AnyObject!) -> Void
-typealias Failure = (task: NSURLSessionDataTask!, error: NSError!) -> Void
-
-```
----
-
-# Type Aliases syntax
-
-```swift
-typealias AudioSample = UInt16
-
-typealias Success = (task: NSURLSessionDataTask!, object: AnyObject!) -> Void
-typealias Failure = (task: NSURLSessionDataTask!, error: NSError!) -> Void
+typealias Failure =
+    (task: NSURLSessionDataTask!, error: NSError!) -> Void
 
 func POST(URLString: String!,
           success: Success!,
